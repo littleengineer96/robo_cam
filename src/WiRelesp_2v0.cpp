@@ -2,21 +2,13 @@
    Software desenvolvido para controle de abertura/fechamento de
    portão eletronico pelo smartphone usando a plataforma Blynk
 
+   Software desenvolvido para controlar um robo suspenso em um cabo
+
    ESP-01  IDE
    GPIO0    0
    TXD      1
    GPIO2    2
    RXD      3
-
-    WiFi.status()
-    WL_NO_SHIELD        = 255,   // for compatibility with WiFi Shield library
-    WL_IDLE_STATUS      = 0,
-    WL_NO_SSID_AVAIL    = 1,
-    WL_SCAN_COMPLETED   = 2,
-    WL_CONNECTED        = 3,
-    WL_CONNECT_FAILED   = 4,
-    WL_CONNECTION_LOST  = 5,
-    WL_DISCONNECTED     = 6
 */
 #include <Arduino.h>
 #include <TimeLib.h>
