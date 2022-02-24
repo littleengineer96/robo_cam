@@ -458,6 +458,10 @@ int WiFi_Manager()
 {
   int back = NULL_;
 
+  String step;
+  String result;
+  String process = " | WiFi_Manager] ";
+
   if ((WiFi.status() != WL_CONNECTED) || tokenInvalid)
   {
 
@@ -468,20 +472,20 @@ int WiFi_Manager()
     // wifi.ConectionState = CONNECTING_ST; // indica o status do dispositivo "tento se conectar"
     // wifi.ConnectingVerify++;             // conta a quantidade de vezes que o dispositivo tentou se conectar
 
-    Serial.println("mounting FS...");
+    // Serial.println("mounting FS...");
 
     if (SPIFFS.begin())
     {
-      Serial.println("mounted file system");
+      // Serial.println("mounted file system");
       if (SPIFFS.exists("/config.json"))
       {
         // file exists, reading and loading
         // se existe o arquivo, carregue e leia
-        Serial.println("reading config file");
+        // Serial.println("reading config file");
         File configFile = SPIFFS.open("/config.json", "r");
         if (configFile)
         {
-          Serial.println("opened config file");
+          // Serial.println("opened config file");
           size_t size = configFile.size();
           // Allocate a buffer to store contents of the file.
           std::unique_ptr<char[]> buf(new char[size]);
@@ -492,12 +496,14 @@ int WiFi_Manager()
           json.printTo(Serial);
           if (json.success())
           {
-            Serial.println("\nparsed json");
+            // Serial.println("\nparsed json");
             strcpy(blynk_token, json["blynk_token"]);
           }
           else
           {
-            Serial.println("failed to load json config");
+            // Serial.println("failed to load json config");
+            step = "Failed to load json config";
+            Serial.println("[" + String(millis()) + process + step);
           }
           configFile.close();
         }
@@ -505,7 +511,9 @@ int WiFi_Manager()
     }
     else
     {
-      Serial.println("failed to mount FS");
+      // Serial.println("failed to mount FS");
+      step = "Failed to mount FS";
+      Serial.println("[" + String(millis()) + process + step);
     } // end read
     //  digitalWrite(LED_, false);
     //   Serial.println(blynk_token);
@@ -513,7 +521,7 @@ int WiFi_Manager()
 
     WiFiManager wifiManager;
 
-    //      wifiManager.resetSettings();
+    // wifiManager.resetSettings();
     wifiManager.setTimeout(TIMEOUT_PORTAL);
     wifiManager.setSaveConfigCallback(Save_Config_Callback);
     wifiManager.addParameter(&custom_blynk_token);
@@ -522,30 +530,36 @@ int WiFi_Manager()
     // wifiManager.startWebPortal();
     // startConfigPortal
 
-    if (!wifiManager.autoConnect(ssidAP, "12345678"))
-    {
-      Serial.println("failed to connect and hit timeout");
-      // wifi.ConectionState = NOT_CONNECTED_ST; // indica o status do dispositivo "não conectado"
-      // wifi.NotConnectedVerify++;              // conta a quantidade de vezes que o dispositivo não se conectou
-      // rt = ERRO;
-      //    ESP.reset();
-    }
-
     if (tokenInvalid)
     {
-      Serial.println("--------");
-      wifiManager.startConfigPortal(ssidAP, "12345678");
-      /* code */
+      // if (tokenInvalid)
+      // {
+      //   Serial.println("--------");
+      //   wifiManager.startConfigPortal(ssidAP,passAP);
+      //   /* code */
+      // }
     }
+    else
+    {
+      if (!wifiManager.autoConnect(ssidAP, passAP))
+      {
+        // Serial.println("failed to connect and hit timeout");
+        step = "Failed to connect and hit timeout";
+        Serial.println("[" + String(millis()) + process + step);
+      }
+    }
+
     // Serial.println("connected...yeey :)");
     strcpy(blynk_token, custom_blynk_token.getValue());
     String leng = blynk_token;
 
     if (leng.length() != SIZE_TOKEN) // só reseta as configurações se conseguir se conectar a rede e a quantidade de caracteres do blynk_tokne for != SIZE_TOKEN
     {
-      Serial.println("Blynk_token está incorreto!");
-      Serial.println("O dispositivo será resetado..");
+      // Serial.println("Blynk_token está incorreto!");
+      // Serial.println("O dispositivo será resetado..");
 
+      step = "Invalid blynk token different size";
+      Serial.println("[" + String(millis()) + process + step);
       char blynk_token_aux[34] = "YOUR_BLYNK_TOKEN_INVALID";
 
       for (int i = 0; i < 34; i++)
