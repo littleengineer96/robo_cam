@@ -5,10 +5,6 @@
 #define BAUD_RATE 115200
 #define DATA_STATE_ADDRESS "/dataState.txt"
 
-#define RESET_WIFI_V1 V1  // switch
-#define ON_OFF_V2 V2      // switch
-#define LOCK_BUTTON_V3 V3 // status
-
 #define LED_PIN 2   // TXD
 #define RELE_PIN 13 // GPIO02
 //#define KEY_PULSE_PIN 3   //RXD
@@ -51,6 +47,19 @@
 #define TRY_AGAIN_CONNECT 4
 #define TIME_CHECK_CONNECTION 30 // SEGUNDOS
 #define TIMEOUT_CONNECT 200      // SEGUNDOS
+
+// blynk virtual pins
+#define RESET_WIFI_V255 V255 // switch
+// #define ON_OFF_V2 V2      // switch
+// #define LOCK_BUTTON_V3 V3 // status
+#define MOV_CAN_PAN V1
+#define MOV_CAN_TILT V2
+#define MOV_ROBO_RIGHT V3
+#define MOV_ROBO_LEFT V4
+
+// pins ESP32
+#define OUTPIN_SERVO_PAN 25
+#define OUTPIN_SERVO_TILT 26
 
 enum State
 {                           //                                                         LED_ON    LED_OFF
@@ -118,4 +127,20 @@ struct ESP_32
     bool Reconnect = false;
     bool CheckConnection = false;
 };
+
+struct RoboCan
+{
+    bool movCanPan = false;
+    int valueCanPan = 0;
+
+    bool movCanTilt = false;
+    int valueCanTilt = 0;
+
+    bool movRoboRight = false;
+    int valueRoboRight = 0;
+
+    bool movRoboLeft = false;
+    int valueRoboLeft = 0;
+};
+
 #endif

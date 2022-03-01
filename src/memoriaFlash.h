@@ -40,8 +40,8 @@ void readStatus()
       if (content.compareTo("on") == 0)
       {
         Serial.println("Ligar Rele");
-        digitalWrite(RELE_PIN, false);    // liga o rele
-        Blynk.virtualWrite(ON_OFF_V2, 1); // altero o status do butão para on
+        digitalWrite(RELE_PIN, false); // liga o rele
+        // Blynk.virtualWrite(ON_OFF_V2, 1); // altero o status do butão para on
         bBlynkButtonState = true;
         bReleState = true;
         output2State = "on";
