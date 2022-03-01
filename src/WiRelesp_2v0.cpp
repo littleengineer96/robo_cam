@@ -43,6 +43,7 @@ bool bLedState = false;         // indica se o led esta on/off
 struct Verify wifi;
 struct Verify blynk;
 struct ESP_32 MyESP32;
+struct RoboCan MyMoves;
 
 unsigned long ulTimeVerify = 0; // variavel de controle
 
@@ -67,6 +68,9 @@ unsigned long TimeOutConnect = 0;
 unsigned long TimeOut = 0;
 // void inite(uint8_t chg_pin);
 
+Servo servoPan;
+Servo servoTilt;
+
 WidgetTerminal terminal(V4);
 
 void setup()
@@ -74,6 +78,8 @@ void setup()
   Comunication(BAUD_RATE);
 
   Setting_Pins();
+
+
 
   Start_Timer(TIME_INTERRUPT);
 
@@ -142,10 +148,36 @@ void loop()
     Blynk.run();
   }
 
+  if (MyMoves.movCanPan)
+  {
+    MyMoves.movCanPan = false;
+    Serial.println("Movendo Camera (PAN) value: " + String(MyMoves.valueCanPan));
+    servoPan.write(MyMoves.valueCanPan);
+  }
+
+  if (MyMoves.movCanTilt)
+  {
+    MyMoves.movCanTilt = false;
+    Serial.println("Movendo Camera (TILT) value: " + String(MyMoves.valueCanTilt));
+    servoTilt.write(MyMoves.valueCanTilt);
+  }
+
+  if (MyMoves.movRoboRight)
+  {
+    MyMoves.movRoboRight = false;
+    Serial.println("Movendo Robo (RIGHT) value: " + String(MyMoves.valueRoboRight));
+  }
+
+  if (MyMoves.movRoboLeft)
+  {
+    MyMoves.movRoboLeft = false;
+    Serial.println("Movendo Robo (LEFT) value: " + String(MyMoves.valueRoboLeft));
+  }
+
   ArduinoOTA.handle();
 }
 
-BLYNK_WRITE(RESET_WIFI_V1)
+BLYNK_WRITE(RESET_WIFI_V255)
 {
   int value = param.asInt(); // Get value as integer
   if (value)
@@ -157,6 +189,30 @@ BLYNK_WRITE(RESET_WIFI_V1)
     // SPIFFS.format();
     // ESP.restart();
   }
+}
+
+BLYNK_WRITE(MOV_CAN_PAN)
+{
+  MyMoves.movCanPan = true;
+  MyMoves.valueCanPan = param.asInt();
+}
+
+BLYNK_WRITE(MOV_CAN_TILT)
+{
+  MyMoves.movCanTilt = true;
+  MyMoves.valueCanTilt = param.asInt();
+}
+
+BLYNK_WRITE(MOV_ROBO_RIGHT)
+{
+  MyMoves.movRoboRight = true;
+  MyMoves.valueRoboRight = param.asInt();
+}
+
+BLYNK_WRITE(MOV_ROBO_LEFT)
+{
+  MyMoves.movRoboLeft = true;
+  MyMoves.valueRoboLeft = param.asInt();
 }
 
 // BLYNK_WRITE(LOCK_BUTTON_V3)

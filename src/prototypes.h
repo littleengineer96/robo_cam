@@ -4,13 +4,14 @@
 #include <Arduino.h>
 #include <SPIFFS.h>
 #include <BlynkSimpleEsp32.h>
-
+#include <Servo.h>
 // settings
 void Setting_Pins();
 void Comunication(int baud_rate);
 void Input_Pins();
 void Output_Pins();
 void Initialize_Variables();
+void Setting_Servo();
 
 // ISR
 void Start_Timer(uint64_t time_in_us);
