@@ -40,6 +40,7 @@ void Output_Pins()
     // Serial.println("outputpins();");
     // pinMode(OUTPIN_SERVO_PAN, OUTPUT);
     // pinMode(OUTPIN_SERVO_TILT, OUTPUT);
+    pinMode(OUTPIN_A4988_SLEEP, OUTPUT);
 
     String process = "| BOOT] ";
     String step = "Setting > OUTPUT_PINS";

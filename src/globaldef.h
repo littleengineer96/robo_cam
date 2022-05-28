@@ -60,6 +60,10 @@
 // pins ESP32
 #define OUTPIN_SERVO_PAN 25
 #define OUTPIN_SERVO_TILT 26
+#define OUTPIN_A4988_EN 27
+#define OUTPIN_A4988_SLEEP 14
+#define OUTPIN_A4988_STEP 12
+#define OUTPIN_A4988_DIR 16
 
 enum State
 {                           //                                                         LED_ON    LED_OFF

@@ -73,13 +73,32 @@ Servo servoTilt;
 
 WidgetTerminal terminal(V4);
 
+FastAccelStepperEngine engine = FastAccelStepperEngine();
+FastAccelStepper *stepper = NULL;
+
 void setup()
 {
   Comunication(BAUD_RATE);
 
   Setting_Pins();
 
+  engine.init();
+  stepper = engine.stepperConnectToPin(OUTPIN_A4988_STEP);
 
+  if (stepper)
+  {
+    stepper->setDirectionPin(OUTPIN_A4988_DIR);
+    stepper->setEnablePin(OUTPIN_A4988_EN);
+    stepper->setAutoEnable(true);
+
+    // If auto enable/disable need delays, just add (one or both):
+    // stepper->setDelayToEnable(50);
+    // stepper->setDelayToDisable(1000);
+
+    stepper->setSpeedInUs(1000); // the parameter is us/step !!!
+    stepper->setAcceleration(100);
+    stepper->move(1000);
+  }
 
   Start_Timer(TIME_INTERRUPT);
 
@@ -177,20 +196,6 @@ void loop()
   ArduinoOTA.handle();
 }
 
-BLYNK_WRITE(RESET_WIFI_V255)
-{
-  int value = param.asInt(); // Get value as integer
-  if (value)
-  {
-    WiFiManager wifiConnect;
-    wifiConnect.resetSettings();
-    WiFi.disconnect();
-    TimeCheck = 1;
-    // SPIFFS.format();
-    // ESP.restart();
-  }
-}
-
 BLYNK_WRITE(MOV_CAN_PAN)
 {
   MyMoves.movCanPan = true;
@@ -215,77 +220,16 @@ BLYNK_WRITE(MOV_ROBO_LEFT)
   MyMoves.valueRoboLeft = param.asInt();
 }
 
-// BLYNK_WRITE(LOCK_BUTTON_V3)
-//{
-//   int value = param.asInt(); // Get value as integer
-//
-//   if (value)
-//   {
-//     lock_button = true;
-//   }
-//   else
-//   {
-//     lock_button = false;
-//   }
-// }
-
-// BLYNK_WRITE(ON_OFF_V2)
-// {
-//   Serial.println("\nBLYNK_WRITE\n");
-//   int value = param.asInt(); // Get value as integer
-
-//   if (value)
-//   {
-//     digitalWrite(RELE_PIN, false); // ligo o rele
-//     bBlynkButtonState = true;      // atualizo o status do button blynk
-//     bReleState = true;             // atualizo o status do rele
-//   }
-//   else
-//   {
-//     digitalWrite(RELE_PIN, true); // ligo o rele
-//     bBlynkButtonState = false;    // atualizo o status do button blynk
-//     bReleState = false;           // atualizo o status do rele
-//   }
-
-//   saveStatus();
-// }
-
-// BLYNK_CONNECTED()
-// {
-//   Serial.println("\nBLYNK_CONNECTED SYNC\n");
-//   //  rtc.begin();
-
-//   // caso a lampada tenha sido acionada pela chave de pulso
-//   if (bReleState && bBlynkButtonState)
-//   {
-//     Blynk.virtualWrite(ON_OFF_V2, 1); // altero o status do butão para on
-//   }
-//   else
-//   {
-//     Blynk.syncVirtual(ON_OFF_V2);
-//   }
-// }
-
-// void myTimerEvent()
-//{
-//   if (!(Blynk.connected()))
-//   {
-//     ESP.restart();
-//   }
-//
-//   digitalWrite(LED_, stsLED);
-//   stsLED = !stsLED;
-//   blynkLED += 1;
-//
-//   if (blynkLED > TIME_LED_OFF)
-//   {
-//     pinMode(LED_, OUTPUT);
-//     digitalWrite(LED_, false);
-//     blynkLED = 0;
-//   } else if (blynkLED == TIME_LED_ON)
-//   {
-//     pinMode(LED_, OUTPUT);
-//     digitalWrite(LED_, true);
-//   }
-//
-// }
+BLYNK_WRITE(RESET_WIFI_V255)
+{
+  int value = param.asInt(); // Get value as integer
+  if (value)
+  {
+    WiFiManager wifiConnect;
+    wifiConnect.resetSettings();
+    WiFi.disconnect();
+    TimeCheck = 1;
+    // SPIFFS.format();
+    // ESP.restart();
+  }
+}

@@ -5,6 +5,8 @@
 #include <SPIFFS.h>
 #include <BlynkSimpleEsp32.h>
 #include <Servo.h>
+#include "FastAccelStepper.h"
+
 // settings
 void Setting_Pins();
 void Comunication(int baud_rate);

@@ -59,18 +59,6 @@ void blynkConnect()
   Serial.println("BLYNK_DISCONNECTED_ST:" + String(blynk.DisconnectedVerify));
   Serial.println("----------------------");
 
-  //  rtc.begin();
-  //  timer.setTimeout(TIME_LED_OFF, blynkLed); //ativa a interrupção de 1 em 1s
-  //  timer.setInterval(10000L, myTimerEvent); //ativa a interrupção de 1 em 1s
-
-  //  resetHDW = false;                        //flag para reinicar o dispositivo
-  //  stsLED = true;
-  //  Serial.end();                            //desativa serial comunication
-
-  //  pinMode(LED_, OUTPUT);
-  //  digitalWrite(LED_, true);
-  //  Blynk.email("engenheiro.automation@gmail.com", "Wiswitch-Start!", "Dispositivo iniciado, acordado.");
-
   blynk.ConnectionAttemptsCounter++;
 }
 #endif
