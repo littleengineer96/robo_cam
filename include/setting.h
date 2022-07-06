@@ -46,15 +46,20 @@ void Output_Pins()
     // pinMode(OUTPIN_SERVO_PAN, OUTPUT);
     // pinMode(OUTPIN_SERVO_TILT, OUTPUT);
     // pinMode(OUTPIN_A4988_SLEEP, OUTPUT);
-    // pinMode(LED_BORD, OUTPUT);
+
+    pinMode(OUTPIN_A4988_DIR, OUTPUT);
+    pinMode(OUTPIN_A4988_STEP, OUTPUT);
+    pinMode(OUTPIN_A4988_EN, OUTPUT);
+
+    pinMode(LED_BORD, OUTPUT);
     // digitalWrite(LED_BORD, LOW);
 
-    pinMode(PIN_SOLENOIDE, OUTPUT);
-    digitalWrite(PIN_SOLENOIDE, LOW);
+    // pinMode(PIN_SOLENOIDE, OUTPUT);
+    // digitalWrite(PIN_SOLENOIDE, LOW);
 
-    String process = "| BOOT] ";
-    String step = "Setting > OUTPUT_PINS";
-    Serial.println("[" + String(millis()) + process + step);
+    // String process = "| BOOT] ";
+    // String step = "Setting > OUTPUT_PINS";
+    // Serial.println("[" + String(millis()) + process + step);
 }
 
 void Initialize_Variables()
@@ -62,17 +67,19 @@ void Initialize_Variables()
     // Serial.println("setFlags();");
     // wifi.ConectionState = NOT_CONNECTED_ST;        // indica o stado da conexão
     // blynk.ConectionState = BLYNK_NOT_CONNECTED_ST; // indica o stado da conexão com blynk
-    String process = "| BOOT] ";
-    String step = "Setting > INIT_VARIABLES";
-    Serial.println("[" + String(millis()) + process + step);
+
+    // String process = "| BOOT] ";
+    // String step = "Setting > INIT_VARIABLES";
+    // Serial.println("[" + String(millis()) + process + step);
 }
 
 void Setting_Servo()
 {
     // servoPan.attach(OUTPIN_SERVO_PAN);
     // servoTilt.attach(OUTPIN_SERVO_TILT);
-    String process = "| BOOT] ";
-    String step = "Setting > SETTING_SERVO";
-    Serial.println("[" + String(millis()) + process + step);
+
+    // String process = "| BOOT] ";
+    // String step = "Setting > SETTING_SERVO";
+    // Serial.println("[" + String(millis()) + process + step);
 }
 #endif

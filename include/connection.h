@@ -5,7 +5,7 @@
 #include "globaldef.h"
 // extern Verify wifi;
 // extern Verify blynk;
-// extern ESP_32 MyESP32;
+extern ESP_32 MyESP32;
 // extern Verify blynk;
 
 extern char blynk_token[35];
@@ -498,7 +498,12 @@ void CONNECTION_WiFi(unsigned int connection_attempts)
     Serial.println("The device will restart");
     ESP.restart();
   }
+
+  // flag para indicar que o dispositivo está online
+  MyESP32.OfflineMode = false;
+  MyESP32.ConnectedWiFi = true;
 }
+
 int CONNECTION_reconnect(unsigned int connection_attempts)
 {
   if (WiFi.status() != WL_CONNECTED)

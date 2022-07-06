@@ -5,9 +5,9 @@
 
 void Programming_OTA()
 {
-  String process = "| BOOT] ";
-  String step = "Setting > OVER_THE_AIR";
-  Serial.println("[" + String(millis()) + process + step);
+  // String process = "| BOOT] ";
+  // String step = "Setting > OVER_THE_AIR";
+  // Serial.println("[" + String(millis()) + process + step);
 
   ArduinoOTA.setHostname(DEVICE_NAME);
   ArduinoOTA.onStart([]()

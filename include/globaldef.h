@@ -18,18 +18,18 @@
 
 #define N_VERIFY 10 // intervalo de verificações Blynk.connected();
 
-#define VERSION "1v0-"         // versão 1.0
-#define SERIE "1"              // serie 2
-#define LOTE "A"               // lote "A"
-#define DEVICE_NAME "IDRF_1v0" // nome completo do dispositivo
+#define VERSION "1v0-"             // versão 1.0
+#define SERIE "1"                  // serie 2
+#define LOTE "A"                   // lote "A"
+#define DEVICE_NAME "Robo_Cam_1v0" // nome completo do dispositivo
 #define DEVICE_PASS "12345678"
 //#define DIVICE_NAME "WiGatekey2030" //nome completo do dispositivo
 
 #define ssidAP DEVICE_NAME
 #define passAP DEVICE_PASS
 
-#define TIMEOUT_PORTAL 60      // time in s
-#define TIME_INTERRUPT 1000000 // tempo em us
+#define TIMEOUT_PORTAL 60     // time in s
+#define TIME_INTERRUPT 300000 // tempo em us
 //#define TIME_ISR_RESET 500 //tempo em milisegundos, deve ser 1000 para que TIMER_AP seja inserido em segundos
 //#define TIMER_AP 150 //tempo  1s = 2   150 = 75s
 #define TIME_ISR_RESET 250 // tempo em milisegundos, deve ser 1000 para que TIMER_AP seja inserido em segundos
@@ -63,7 +63,7 @@
 #define RESOLUTION_ADC 4095
 
 // blynk virtual pins
-#define RESET_WIFI_V255 V255 // switch
+#define RESET_WIFI_V11 V11 // switch
 // #define ON_OFF_V2 V2      // switch
 // #define LOCK_BUTTON_V3 V3 // status
 #define MOV_CAN_PAN V1
@@ -75,22 +75,24 @@
 #define PIN_SOLENOIDE 4 // PINO DE CONTROLE DE SOLENOIDE
 #define GET_VBAT V2
 
-// pins ESP32
+//=========== pins ESP32 =================
+
+//  Servos
 #define OUTPIN_SERVO_PAN 25
 #define OUTPIN_SERVO_TILT 26
-#define OUTPIN_A4988_EN 27
-#define OUTPIN_A4988_SLEEP 14
-#define OUTPIN_A4988_STEP 12
-#define OUTPIN_A4988_DIR 16
 
-#define PIN_CS_MRFC522 5
-#define PIN_RST_MRFC522 2
+// Driver motor de passo
+// #define OUTPIN_A4988_EN 27
+// #define OUTPIN_A4988_SLEEP 14
+// #define OUTPIN_A4988_STEP 12
+// #define OUTPIN_A4988_DIR 16
 
-#define UID_TAG_CARD "C7:CE:CE:D7"
-#define UID_TAG_CHAVEIRO "73:39:99:14"
+#define OUTPIN_A4988_STEP 26
+#define OUTPIN_A4988_DIR 27
+#define OUTPIN_A4988_EN 25
 
 #define uS_TO_S_FACTOR 1000000 /* Conversion factor for micro seconds to seconds */
-#define TIME_TO_SLEEP 10        /* Time ESP32 will go to sleep (in seconds) */
+#define TIME_TO_SLEEP 10       /* Time ESP32 will go to sleep (in seconds) */
 
 enum State
 {                           //                                                         LED_ON    LED_OFF
@@ -151,7 +153,7 @@ struct ESP_32
     int CurrentAttempts = 0;
     bool ConnectedWiFi = false;
     bool ConnectedBlynk = false;
-    bool OfflineMode = false;
+    bool OfflineMode = true;
     bool Carrying = false;
     bool ReturnDoca = false;
     bool TurnOnCAM = false;

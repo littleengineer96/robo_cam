@@ -3,6 +3,8 @@
 
 #include "prototypes.h"
 
+extern ESP_32 MyESP32;
+
 extern char blynk_token[35];
 extern char blynk_server[17];
 extern char blynk_port[5];
@@ -50,6 +52,9 @@ void BLYNK_connection(unsigned int connection_attempts)
     Serial.println("The device will restart");
     ESP.restart();
   }
+
+  MyESP32.OfflineMode = false;
+  MyESP32.ConnectedBlynk = true;
 }
 
 int BLYNK_reconnect(unsigned int connection_attempts)
@@ -69,21 +74,35 @@ int BLYNK_connect()
 
   Serial.println("\nConectando ao Blynk...");
 
-  if (WiFi.status() != WL_CONNECTED)
-  {
-    Serial.println("Device not connected WiFi");
-    return ERRO;
-  }
+  // if (WiFi.status() != WL_CONNECTED)
+  // {
+  //   Serial.println("Device not connected WiFi");
+  //   return ERRO;
+  // }
 
   // Blynk.config(blynk_token);
   //  Blynk.config("CmmH2Eq9mMfW-EclrCYV8uwR5Zn-eWwX", IPAddress(34, 95, 235, 246), 8080);
-  // String pt = blynk_port;
-  // uint16_t port = pt.toInt();
+  String pt = blynk_port;
+  uint16_t port = pt.toInt();
 
-  Blynk.config(blynk_token, blynk_server, 8080);
+  // Blynk.config(blynk_token, blynk_server, 8080);
+  // Blynk.config(blynk_token, blynk_server, port);
 
-  // if (Blynk.connect(TIME_OUT_BLYNK_CONNECT))
-  if (Blynk.connect())
+  Blynk.begin(blynk_token, esp32_rede, esp32_pass);
+
+  // // if (Blynk.connect(TIME_OUT_BLYNK_CONNECT))
+  // if (Blynk.connect())
+  // {
+  //   Serial.println("Connected to Blynk!");
+  //   return SUCCESS;
+  // }
+  // else
+  // {
+  //   Serial.println("Error Connect to Blynk.");
+  //   return ERRO;
+  // }
+
+  if (Blynk.connected())
   {
     Serial.println("Connected to Blynk!");
     return SUCCESS;

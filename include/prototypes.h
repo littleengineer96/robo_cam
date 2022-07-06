@@ -15,8 +15,9 @@
 #include <WiFi.h>
 #include <ArduinoJson.h>
 #include <WiFiManager.h>
-#include <../MFRC522/src/MFRC522.h>
 #include <SPI.h>
+#include <Servo.h>
+#include "FastAccelStepper.h"
 
 #include "connection.h"
 #include "globaldef.h"
@@ -27,7 +28,7 @@
 #include "setting.h"
 #include "setupBlynk.h"
 #include "setupOTA.h"
-#include "mrfc522_.h"
+#include "stepMotor.h"
 
 // settings
 void Setting_Pins(void);
@@ -67,4 +68,7 @@ void BLYNK_connection(unsigned int connection_attempts);
 // MRFC522.H
 void MRFC522_get_id();
 void MRFC522_setup();
+
+//stepMotor.h
+
 #endif

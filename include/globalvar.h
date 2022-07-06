@@ -8,7 +8,9 @@ extern bool f_SerialOut_ON;
 
 extern int intLedOn;
 extern int intLedOff;
+
 extern bool bLedState;
+extern int auxLed;
 
 extern struct Verify wifi;
 extern struct Verify blynk;
@@ -17,11 +19,11 @@ extern struct RoboCan MyMoves;
 
 extern unsigned long ulTimeVerify;
 
-extern bool bBlynkButtonState;
-extern bool bKeyPulseState;
-extern bool bReleState;
+// extern bool bBlynkButtonState;
+// extern bool bKeyPulseState;
+// extern bool bReleState;
 
-extern bool lock_button;
+// extern bool lock_button;
 
 extern const char esp32_rede[20];
 extern const char esp32_pass[20];
@@ -29,9 +31,9 @@ extern const char esp32_pass[20];
 
 extern hw_timer_t *timer;
 
-extern bool bTouchState;
-extern bool f_Reconnect_WIFI;
-extern bool f_Reconnect_Blynk;
+// extern bool bTouchState;
+// extern bool f_Reconnect_WIFI;
+// extern bool f_Reconnect_Blynk;
 
 extern unsigned long TimeCheck;
 extern unsigned long TimeOutConnect;
