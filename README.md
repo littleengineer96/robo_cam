@@ -1,3 +1,3 @@
-# IDRF
+# Robo Cam
 
-software desenvolvido para controle de uma fechadura a solenoide que pode ser aberta de diversar formas inclusive via smartphone.
+software desenvolvido para controlar um robo que é sustentado por um cabo, tracionado por um motor de passo e carrega uma câmera.
