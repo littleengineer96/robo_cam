@@ -88,8 +88,8 @@
 // #define OUTPIN_A4988_DIR 16
 
 #define OUTPIN_A4988_STEP 26
-#define OUTPIN_A4988_DIR 27
-#define OUTPIN_A4988_EN 25
+#define OUTPIN_A4988_DIR 25
+#define OUTPIN_A4988_EN 27
 
 #define uS_TO_S_FACTOR 1000000 /* Conversion factor for micro seconds to seconds */
 #define TIME_TO_SLEEP 10       /* Time ESP32 will go to sleep (in seconds) */
